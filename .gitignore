@@ -1,3 +1,8 @@
+# others
+nlpaug.ipynb
+neptune_test.py
+*.neptune/*
+
 # HuggingFace
 huggingface.ipynb
 *.zip
@@ -132,3 +137,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Ignore dynaconf secret files
+.secrets.*
