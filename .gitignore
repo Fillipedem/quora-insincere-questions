@@ -1,7 +1,11 @@
+# models
+*ftbert_*
+
 # others
 nlpaug.ipynb
 neptune_test.py
 *.neptune/*
+*nohup*
 
 # HuggingFace
 huggingface.ipynb
