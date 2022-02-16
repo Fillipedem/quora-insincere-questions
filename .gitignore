@@ -1,5 +1,8 @@
 # models
 *ftbert_*
+*model_weights*
+*results*
+*.neptune*
 
 # others
 nlpaug.ipynb

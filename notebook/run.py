@@ -28,10 +28,10 @@ BATCH_SIZE = 64
 EPOCHS = 1
 LEARNING_RATE = 1e-05
 DISTIL_BERT_CHECKPOINT = 'distilbert-base-uncased'
-RUN_NAME = 'ROS'
+RUN_NAME = 'NLPAUG'
 TEST_PATH = '../data/processed/quick_test.csv'
-TRAIN_PATH = '../data/ros/train.csv'
-MODEL_SAVE = '../models/'
+TRAIN_PATH = '../data/nlpaug/train.csv'
+MODEL_SAVE = '../models/nlpaug/'
 
 tokenizer = DistilBertTokenizer.from_pretrained(DISTIL_BERT_CHECKPOINT)
 
@@ -177,12 +177,13 @@ def train(epoch=1):
 
         if idx % 20 == 0:
             results = accuracy(model, test_loader) 
-            run["train/accuracy"].log(results['accuracy'], step=idx)
-            run["train/f1"].log(results['f1'], step=idx)
-            run["train/roc_auc"].log(results['roc_auc'], step=idx)
-            run["train/precision_Sincere"].log(results['precision_Sincere'], step=idx)
-            run["train/precision_Insincere"].log(results['precision_Insincere'], step=idx)
+            run["test/accuracy"].log(results['accuracy'], step=idx)
+            run["test/f1"].log(results['f1'], step=idx)
+            run["test/roc_auc"].log(results['roc_auc'], step=idx)
+            run["test/precision_Sincere"].log(results['precision_Sincere'], step=idx)
+            run["test/precision_Insincere"].log(results['precision_Insincere'], step=idx)
             print(results)
+        if idx % 1_00 == 0:
             print("Saving model...")
             torch.save(model.state_dict(), Path(MODEL_SAVE) / f'ftbert_{idx}_{datetime.now()}' )
 
@@ -197,7 +198,7 @@ import neptune.new as neptune
 run = neptune.init(
     project=settings.project,
     api_token=settings.api_token,
-    name='RandomOversampling'
+    name='NLPAUG'
 )  
 
 print("Training...")
